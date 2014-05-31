@@ -11,6 +11,7 @@ foreach ($filelist as $item) {
                        $item['userid'],
                        $item['ip'],
                        $item['country'],
+                       $item['city'],
                        $item['isp'],
                        $item['latitude'],
                        $item['longitude'],

@@ -19,6 +19,7 @@ class Filemanagement extends CI_Controller {
       $value['userid'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
+      $value['city'] = $temp['city'];
       $value['latitude'] = $temp['latitude'];
       $value['longitude'] = $temp['longitude'];
       $value['country'] = $this->locate_model->getCountry($value['ip']);
@@ -34,6 +35,7 @@ class Filemanagement extends CI_Controller {
       $value['userid'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
+      $value['city'] = $temp['city'];
       $value['latitude'] = $temp['latitude'];
       $value['longitude'] = $temp['longitude'];
       $value['country'] = $this->locate_model->getCountry($value['ip']);
@@ -49,6 +51,7 @@ class Filemanagement extends CI_Controller {
       $value['userid'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
+      $value['city'] = $temp['city'];
       $value['latitude'] = $temp['latitude'];
       $value['longitude'] = $temp['longitude'];
       $value['country'] = $this->locate_model->getCountry($value['ip']);
