@@ -49,7 +49,14 @@ class Upload extends CI_Controller {
 		  {
 			  $data = array('upload_data' => $this->upload->data());
         $data['userid'] = $this->authentication_model->getid($username);
-        $data['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+          $data['ip'] = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+          $data['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+          $data['ip'] = $_SERVER['REMOTE_ADDR'];
+        }
+        //$data['ip'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
         //$data['country'] = $this->locate_model->getCountry($data['ip']);
         //$data['isp'] = $this->locate_model->getISP($data['ip']);
         
