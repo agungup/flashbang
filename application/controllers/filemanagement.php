@@ -16,7 +16,7 @@ class Filemanagement extends CI_Controller {
     $data['filelist'] = $this->file_model->getFileList();
     foreach($data['filelist'] as &$value)
     {
-      $value['userid'] = $this->authentication_model->getuser($value['userid']);
+      $value['user'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
       $value['city'] = $temp['city'];
@@ -32,7 +32,7 @@ class Filemanagement extends CI_Controller {
     $data['filelist'] = $this->file_model->getFileList($userid);
     foreach($data['filelist'] as &$value)
     {
-      $value['userid'] = $this->authentication_model->getuser($value['userid']);
+      $value['user'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
       $value['city'] = $temp['city'];
@@ -48,7 +48,7 @@ class Filemanagement extends CI_Controller {
     $data['filelist'] = $this->file_model->getFileList($userid);
     foreach($data['filelist'] as &$value)
     {
-      $value['userid'] = $this->authentication_model->getuser($value['userid']);
+      $value['user'] = $this->authentication_model->getuser($value['userid']);
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
       $value['city'] = $temp['city'];
@@ -63,18 +63,7 @@ class Filemanagement extends CI_Controller {
 	{
     if($ip==0)
     {
-      $data['filelist'] = $this->file_model->getFileList();
-      foreach($data['filelist'] as &$value)
-      {
-        $value['userid'] = $this->authentication_model->getuser($value['userid']);
-        $temp = $this->locate_model->getCity($value['locId']);
-        $value['isp'] = $this->locate_model->getISP($value['ip']);
-        $value['city'] = $temp['city'];
-        $value['latitude'] = $temp['latitude'];
-        $value['longitude'] = $temp['longitude'];
-        $value['country'] = $this->locate_model->getCountry($value['ip']);
-      }
-	  	$this->load->template('filelisttotrace', $data);
+      redirect(base_url().'filemanagement/', 'refresh');
     }
     else
     {
