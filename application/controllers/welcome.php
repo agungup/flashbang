@@ -2,26 +2,43 @@
 
 class Welcome extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
-		$this->load->view('welcome_message');
-	}
-}
+    function __construct()
+    {
+        parent::__construct();
+    }
 
+    public function index()
+    {
+        $controllers    = array();
+
+        $dir            = APPPATH.'/controllers/';
+        $files          = scandir($dir);
+
+        $controller_files = array_filter($files, function($filename) {
+            return (substr(strrchr($filename, '.'), 1)=='php') ? true : false;
+        });
+
+        foreach ($controller_files as $filename)
+        {
+            require_once('./application/controllers/'.$filename);
+
+            $classname = substr($filename, 0, strrpos($filename, '.'));
+            $controller = new $classname();
+            $methods = get_class_methods($controller);
+
+            $controller_info = array(
+                'filename' => $filename,
+                'class_name' => $classname,
+                'methods'  => $methods
+            );
+            array_push($controllers,$controller_info);
+        }
+
+        echo('<pre>');
+        print_r($controllers);
+        //$data['controllers'] = $controllers
+        echo('</pre>');
+    }
+}
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */

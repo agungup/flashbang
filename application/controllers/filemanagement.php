@@ -93,7 +93,13 @@ class Filemanagement extends CI_Controller {
       }
       $this->load->template('tracelist', $data);
     }
-    
-	}
+  }
+ 
+  function location($lat = 0, $lng = 0)
+	{
+      $data['lat'] = $lat;
+      $data['lng'] = $lng;
+      $this->load->template('map', $data);
+  }
 }
 ?>
