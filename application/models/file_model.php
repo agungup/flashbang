@@ -5,7 +5,7 @@ class file_model extends CI_model {
 		$this->load->database();
 	}
 	
-	public function getFileList($userid = 0)
+	public function getFileList($userid = 0, $device="%")
 	//insert upload data
 	//Input: username valid
 	//Output: id
@@ -16,7 +16,7 @@ class file_model extends CI_model {
     }
     else
     {
-      $str = "SELECT * FROM position WHERE userid=".$userid;
+      $str = "SELECT * FROM position WHERE userid=".$userid." AND filename LIKE \"".$device."%\"";
     }
     $query = $this->db->query($str);
     

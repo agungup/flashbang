@@ -1,7 +1,8 @@
 <a href="<?php echo base_url();?>index.php/upload/">Upload Image</a>
 <table border=1>
 <tr>
-  <th>Uploader</th>
+  <th>User</th>
+  <th>Device</th>
   <th>IP</th>
   <th>Country</th>
   <th>City</th>
@@ -13,6 +14,13 @@
 <?php foreach ($filelist as $item):?>
 <tr>
   <td><a href="<?php echo base_url();?>index.php/filemanagement/byid/<?php echo $item['userid'] ?>"><?php echo $item['user'] ?></a></td>
+  <td><?php
+  if(!empty($item['device']))
+  {?>
+    <a href="<?php echo base_url();?>index.php/filemanagement/byid/<?php echo $item['userid'] ?>/<?php echo $item['device'] ?>"><?php echo $item['device'] ?></a>
+<?php
+  }
+    ?></td>
   <td><?php
   if($item['ip'] === "*"){
     echo $item['ip'];

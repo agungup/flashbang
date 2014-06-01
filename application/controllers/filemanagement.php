@@ -17,6 +17,7 @@ class Filemanagement extends CI_Controller {
     foreach($data['filelist'] as &$value)
     {
       $value['user'] = $this->authentication_model->getuser($value['userid']);
+      $value['device'] = substr($value['filename'],0,strpos($value['filename'],'_'));
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
       $value['city'] = $temp['city'];
@@ -27,12 +28,13 @@ class Filemanagement extends CI_Controller {
 		$this->load->template('filelist', $data);
 	}
   
-  function byid($userid)
+  function byid($userid,$device="%")
 	{
-    $data['filelist'] = $this->file_model->getFileList($userid);
+    $data['filelist'] = $this->file_model->getFileList($userid,$device);
     foreach($data['filelist'] as &$value)
     {
       $value['user'] = $this->authentication_model->getuser($value['userid']);
+      $value['device'] = substr($value['filename'],0,strpos($value['filename'],'_'));
       $temp = $this->locate_model->getCity($value['locId']);
       $value['isp'] = $this->locate_model->getISP($value['ip']);
       $value['city'] = $temp['city'];
