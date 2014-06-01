@@ -6,7 +6,7 @@
   <th>IP</th>
   <th>Country</th>
   <th>City</th>
-  <th>ISP</th>
+  <th>ASN</th>
   <th>Position (lat;lng)</th>
   <th>Image</th>
   <th>Timestamp</th>
