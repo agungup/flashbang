@@ -58,5 +58,42 @@ class Filemanagement extends CI_Controller {
     }
 		$this->load->view('csv', $data);
 	}
+  
+  function trace($ip = 0, $hop = 15)
+	{
+    if($ip==0)
+    {
+      $data['filelist'] = $this->file_model->getFileList();
+      foreach($data['filelist'] as &$value)
+      {
+        $value['userid'] = $this->authentication_model->getuser($value['userid']);
+        $temp = $this->locate_model->getCity($value['locId']);
+        $value['isp'] = $this->locate_model->getISP($value['ip']);
+        $value['city'] = $temp['city'];
+        $value['latitude'] = $temp['latitude'];
+        $value['longitude'] = $temp['longitude'];
+        $value['country'] = $this->locate_model->getCountry($value['ip']);
+      }
+	  	$this->load->template('filelisttotrace', $data);
+    }
+    else
+    {
+      exec("traceroute -m ".$hop." -n ".$ip." | tail -n+2 | awk '{ print $2 }'",$data['output']);
+      foreach($data['output'] as &$outputip)
+      {
+        $tempip = $outputip;
+        //echo $tempip."<br>";
+        $temploc = $this->locate_model->getIdCity($tempip);
+        //echo $tempip."<br>".$temploc;
+        $outputip = $this->locate_model->getCity($temploc);
+        
+        $outputip['country'] = $this->locate_model->getCountry($tempip);
+        $outputip['isp'] = $this->locate_model->getISP($tempip);
+        $outputip['ip'] = $tempip;
+      }
+      $this->load->template('tracelist', $data);
+    }
+    
+	}
 }
 ?>
