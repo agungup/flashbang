@@ -43,7 +43,7 @@ class Upload extends CI_Controller {
 			  $error = array('error' => $this->upload->display_errors());
 
 			  //$this->load->template('upload_form', $error);
-        $this->load->template('upload_failed', $error);
+        $this->load->view('upload_failed', $error);
 		  }
 		  else
 		  {
@@ -65,7 +65,7 @@ class Upload extends CI_Controller {
         
         $data['insertid'] = $this->upload_model->addUpload($data['userid'],$data['ip'],$data['locId'],$data['upload_data']['file_name']);
   			
-        $this->load->template('upload_success');
+        $this->load->view('upload_success');
 	  	}
     }
 	}
